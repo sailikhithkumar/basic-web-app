@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, init`ial-scale=1.0" />
+    <title>Basic Web App</title>
+  </head>
+  <body>
+    <!-- Form for user input -->
+    <h1>Basic Web App</h1>
+    <form id="userForm" action="/submit" method="POST">
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" required /><br />
+      <label for="email">Email:</label><br />
+      <input type="email" id="email" name="email" required /><br />
+      <label for="age">Age:</label><br />
+      <input type="number" id="age" name="age" required /><br />
+      <label for="dob">Date of Birth:</label><br />
+      <input type="date" id="dob" name="dob" required /><br /><br />
+      <button type="submit">Submit</button>
+    </form>
+
+    <!-- Table to display user data -->
+    <h2>Users</h2>
+    <table id="userTable" border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Age</th>
+          <th>Date of Birth</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody"></tbody>
+    </table>
+
+    <!-- Include JavaScript file for frontend logic -->
+    <script src="script.js"></script>
+  </body>
+</html>
