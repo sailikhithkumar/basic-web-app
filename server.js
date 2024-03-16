@@ -1,8 +1,7 @@
-// server.js
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./database');
+const path = require('path'); // Import the path module
 
 const app = express();
 const PORT = 3000;
@@ -10,14 +9,16 @@ const PORT = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Serve static files (HTML, CSS, JavaScript)
 app.use(express.static('public'));
 
-// Endpoint to handle form submission
+// Route to serve the users.html file
+app.get('/users.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'users.html'));
+});
+
 app.post('/submit', (req, res) => {
   const { name, email, age, dob } = req.body;
 
-  // Insert data into database
   db.run(
     'INSERT INTO users (name, email, age, dob) VALUES (?, ?, ?, ?)',
     [name, email, age, dob],
@@ -32,9 +33,7 @@ app.post('/submit', (req, res) => {
   );
 });
 
-// Endpoint to retrieve user data
 app.get('/users', (req, res) => {
-  // Retrieve data from database
   db.all('SELECT * FROM users', (err, rows) => {
     if (err) {
       console.error(err);
@@ -45,7 +44,17 @@ app.get('/users', (req, res) => {
   });
 });
 
-// Start server
+app.delete('/users', (req, res) => {
+  db.run('DELETE FROM users', (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(200).send('All users cleared successfully');
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

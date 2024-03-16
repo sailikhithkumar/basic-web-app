@@ -2,40 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, init`ial-scale=1.0" />
-    <title>Basic Web App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration</title>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- Form for user input -->
-    <h1>Basic Web App</h1>
-    <form id="userForm" action="/submit" method="POST">
-      <label for="name">Name:</label><br />
-      <input type="text" id="name" name="name" required /><br />
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="email" required /><br />
-      <label for="age">Age:</label><br />
-      <input type="number" id="age" name="age" required /><br />
-      <label for="dob">Date of Birth:</label><br />
-      <input type="date" id="dob" name="dob" required /><br /><br />
-      <button type="submit">Submit</button>
-    </form>
-
-    <!-- Table to display user data -->
-    <h2>Users</h2>
-    <table id="userTable" border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Age</th>
-          <th>Date of Birth</th>
-        </tr>
-      </thead>
-      <tbody id="userTableBody"></tbody>
-    </table>
-
-    <!-- Include JavaScript file for frontend logic -->
-    <script src="script.js"></script>
+    <div class="container">
+      <h1>User Registration</h1>
+      <div class="form-container">
+        <form id="userForm">
+          <label for="name">Name:</label><br />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            maxlength="20"
+            pattern="[A-Za-z ]+"
+            title="Please enter only letters and spaces"
+          /><br />
+          <label for="email">Email:</label><br />
+          <input type="email" id="email" name="email" required /><br />
+          <label for="age">Age:</label><br />
+          <input type="number" id="age" name="age" required max="999" /><br />
+          <label for="dob">Date of Birth:</label><br />
+          <input
+            type="date"
+            id="dob"
+            name="dob"
+            max="<%= new Date().toISOString().split('T')[0] %>"
+            required
+          /><br /><br />
+          <button type="button" onclick="submitForm()" id="submitBtn">
+            Submit
+          </button>
+        </form>
+      </div>
+      <button id="showUsersBtn" onclick="toggleUserData()">Show Users</button>
+      <button id="clearUsersBtn" onclick="clearUserData()">Clear Users</button>
+      <div id="userTableContainer" style="display: none">
+        <h2>User Data</h2>
+        <table id="userTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Date of Birth</th>
+            </tr>
+          </thead>
+          <tbody id="userTableBody"></tbody>
+        </table>
+      </div>
+      <div id="message"></div>
+    </div>
+    <script src="js/script.js"></script>
   </body>
 </html>
